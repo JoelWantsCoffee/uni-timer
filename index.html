@@ -66,7 +66,7 @@
 
         #ben {
             display: none;
-            filter: contrast(0.5) brightness(1.5);
+            filter: contrast(0.8) brightness(1.1);
         }
 
         #ben.show {
@@ -112,16 +112,24 @@
         chillin = document.getElementById("chillin");
         stressin = document.getElementById("stressin");
 
-        secondsLeft = ((60 - seconds - 1) < 10) ? "0" + (60 - seconds - 1) : (60 - seconds - 1);
+        secondsLeft = ((60 - seconds - 1) < 10) ? (60 - seconds - 1) : (60 - seconds - 1);
+        minutesLeft = (minutes < studyTime) ? (studyTime - minutes - 1) : (60 - minutes - 1)
+        
+        if ((minutesLeft < 1) && (secondsLeft < 2)) {
+            var audio = new Audio('https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3');
+            audio.play();
+        }
+
         if ((minutes < studyTime)) {
             if (chillin) chillin.style.display = 'none'
             if (stressin) stressin.style.display = '';
-            timeLeft = ((studyTime - minutes - 1) + " minutes and " + secondsLeft + " seconds of study left");
+            timeLeft = (minutesLeft + " minutes and " + secondsLeft + " seconds of study left");
         } else {
             if (chillin) chillin.style.display = '';
             if (stressin) stressin.style.display = 'none';
-            timeLeft = ((60 - minutes - 1) + " minutes and " + secondsLeft + " seconds of chill time left");
+            timeLeft = (minutesLeft + " minutes and " + secondsLeft + " seconds of chill time left");
         }
+
         document.getElementById("timeLeft").innerText = timeLeft;
         document.getElementById("timeLeft").textContent = timeLeft;
         
