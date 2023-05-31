@@ -50,10 +50,6 @@
             /* font-weight: bold; */
         }
 
-        #chillin {
-            display: none;
-        }
-
         #lofi {
             position: absolute;
             top: 39vh;
@@ -104,11 +100,11 @@
         secondsLeft = ((60 - seconds - 1) < 10) ? "0" + (60 - seconds - 1) : (60 - seconds - 1);
         if ((minutes < studyTime)) {
             if (chillin) chillin.style.display = 'none'
-            if (stressin) stressin.style.display='';
+            if (stressin) stressin.style.display = '';
             timeLeft = ((studyTime - minutes - 1) + " minutes and " + secondsLeft + " seconds of study left");
         } else {
-            if (chillin) chillin.style.display='';
-            if (stressin) stressin.style.display='none';
+            if (chillin) chillin.style.display = '';
+            if (stressin) stressin.style.display = 'none';
             timeLeft = ((60 - minutes - 1) + " minutes and " + secondsLeft + " seconds of chill time left");
         }
         document.getElementById("timeLeft").innerText = timeLeft;
