@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Pixel Manipulation</title>
+    <style>
+        #imageC {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="imageCanvas"></canvas>
+
+    <script>
+        window.onload = function() {
+
+            let canvas = document.getElementById('imageCanvas');
+            let ctx = canvas.getContext('2d');
+            let img = new Image();
+            
+            img.crossOrigin = "anonymous";
+            img.src = "./ubeaut.png";
+            img.alt = "Ubeaut Image";
+
+            
+
+            img.onload = function() {
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0, img.width, img.height);
+
+                console.log("bruhs");
+
+                let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                let data = imageData.data;
+
+                for(let i = 0; i < data.length; i += 4) {
+                    if((data[i] === 0 && data[i + 1] === 0 && data[i + 2] === 255) || (data[i] === 0 && data[i + 1] === 255 && data[i + 2] === 0)) {
+                        data[i + 3] = 0;
+                    }
+                }
+
+                ctx.putImageData(imageData, 0, 0);
+
+                let newImg = document.createElement('img');
+                newImg.src = canvas.toDataURL();
+                document.body.appendChild(newImg);
+
+                canvas.style.display = 'none';
+            };
+        };
+    </script>
+</body>
+</html>
